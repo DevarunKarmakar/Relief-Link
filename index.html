@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ReliefLink — Community Crisis Board</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Import Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ============ NAVBAR ============ -->
+  <nav class="navbar">
+    <div class="navbar-left">
+      <h1 class="logo">
+        <span class="logo-dot">●</span> ReliefLink
+      </h1>
+      <p class="tagline">Community Crisis Board</p>
+    </div>
+    <div class="navbar-right">
+      <span class="post-count-badge" id="post-count">24 active posts</span>
+    </div>
+  </nav>
+
+  <!-- ============ HERO BANNER ============ -->
+  <section id="hero" class="hero">
+    <h2 class="hero-heading">Post a need. Offer help. Save time.</h2>
+    <p class="hero-subtext">An open noticeboard for disaster-affected communities.</p>
+    <button class="btn btn-primary" id="hero-cta">Post a Need or Offer →</button>
+  </section>
+
+  <!-- ============ FILTER BAR ============ -->
+  <section id="filters" class="filter-bar">
+    <div class="filter-controls">
+      <label>Filter by:</label>
+      <div class="filter-buttons">
+        <button class="filter-btn active" data-filter="All">All</button>
+        <button class="filter-btn" data-filter="Food">Food</button>
+        <button class="filter-btn" data-filter="Water">Water</button>
+        <button class="filter-btn" data-filter="Medical">Medical</button>
+        <button class="filter-btn" data-filter="Shelter">Shelter</button>
+        <button class="filter-btn" data-filter="Rescue">Rescue</button>
+      </div>
+    </div>
+    
+    <div class="filter-right">
+      <label class="toggle-label">
+        <input type="checkbox" id="urgent-toggle" class="toggle-checkbox">
+        <span class="toggle-slider"></span>
+        Show Urgent Only
+      </label>
+      <span class="visible-count" id="visible-count">24 posts visible</span>
+    </div>
+  </section>
+
+  <!-- ============ POSTS BOARD ============ -->
+  <section id="board-section" class="board-section">
+    <div id="board" class="board">
+      <!-- Posts are injected here by JavaScript -->
+      <div class="empty-state">
+        <div class="empty-icon">📋</div>
+        <p>No posts yet. Be the first to share!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ POST FORM MODAL ============ -->
+  <div id="modal-overlay" class="modal-overlay hidden">
+    <div id="modal" class="modal">
+      <button class="modal-close" id="modal-close">×</button>
+      <h3 class="modal-title">Share what you need or can offer</h3>
+
+      <form id="post-form" class="post-form">
+        
+        <!-- Type Toggle: NEED / OFFER -->
+        <div class="form-group">
+          <label class="form-label">Type *</label>
+          <div class="type-toggle">
+            <button type="button" class="type-btn need-btn" data-type="NEED">
+              I Need Help
+            </button>
+            <button type="button" class="type-btn offer-btn" data-type="OFFER">
+              I Can Help
+            </button>
+          </div>
+          <span class="error-msg" id="type-error"></span>
+        </div>
+
+        <!-- Category Dropdown -->
+        <div class="form-group">
+          <label class="form-label">Category *</label>
+          <select id="category" class="form-input" required>
+            <option value="">— Select category —</option>
+            <option value="Food">Food</option>
+            <option value="Water">Water</option>
+            <option value="Medical">Medical</option>
+            <option value="Shelter">Shelter</option>
+            <option value="Rescue">Rescue</option>
+          </select>
+          <span class="error-msg" id="category-error"></span>
+        </div>
+
+        <!-- Description -->
+        <div class="form-group">
+          <label class="form-label">Description *</label>
+          <div class="description-wrapper">
+            <textarea 
+              id="description" 
+              class="form-input textarea" 
+              placeholder="Describe briefly what you need or offer..."
+              maxlength="120"
+              required
+            ></textarea>
+            <span class="char-count">
+              <span id="char-used">0</span>/120
+            </span>
+          </div>
+          <span class="error-msg" id="description-error"></span>
+        </div>
+
+        <!-- Location -->
+        <div class="form-group">
+          <label class="form-label">Your location / landmark *</label>
+          <input 
+            type="text" 
+            id="location" 
+            class="form-input" 
+            placeholder="e.g., Sector 4, Near Hospital"
+            required
+          >
+          <span class="error-msg" id="location-error"></span>
+        </div>
+
+        <!-- Urgent Checkbox -->
+        <div class="form-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="urgent" class="checkbox">
+            <span>Mark as URGENT</span>
+          </label>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary btn-full">Post to Board</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============ FLOATING ACTION BUTTON ============ -->
+  <button id="fab" class="fab">+ Post</button>
+
+  <!-- ============ FIREBASE SDK ============ -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+  <!-- ============ APP SCRIPTS ============ -->
+  <script src="firebase-config.js"></script>
+  <script src="app.js"></script>
+
+</body>
+</html>
